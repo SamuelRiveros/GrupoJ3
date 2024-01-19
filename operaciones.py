@@ -7,64 +7,75 @@ titulo = """
     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 """
 
-tabla = """
-    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    |  -----              TABLA DE INFORMACION                -----   |
-    |                                                                 |
-    |                                                                 |
-    |                                                                 |
-    |                                                                 |
-    |                                                                 |
-    |                                                                 |
-    |                                                                 |
-    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-"""
-opciones = "1. Agregar equipo\n2. Ordenar Partidos\n3. Reportes\n4. Salir\n5. Salir"
+# tabla = """
+#     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#     |  -----              TABLA DE INFORMACION                -----   |
+#     |                                                                 |
+#     |                                                                 |
+#     |                                                                 |
+#     |                                                                 |
+#     |                                                                 |
+#     |                                                                 |
+#     |                                                                 |
+#     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# """
+
+opciones = "1. Agregar equipo\n2. Ordenar Partidos\n3. Reportes\n4. Salir"
 isActivate = True
 equipo = []
 
-# PARTIDOS JUGADOS #
-PJ = 0
-
-# PARTIDOS GANADOS #
-PG = 0
-
-# PARTIDOS PERDIDOS #
-PP = 0
-
-# PARTIDOS EMPATADOS #
-PE = 0
-
-# GOLES A FAVOR #
-GF = 0
-# GOLES EN CONTRA #
-GC = 0
-
-# TOTAL DE PUNTOS #
-TP = 0
-
 while isActivate:
     os.system("cls")
-    print(titulo)
+    print (titulo)
     print(opciones)
     op = int(input(":) : "))
     if (op == 1):
         id = str(len(equipo)).zfill(5)
         nombre = input("Ingrese el nombre del equipo, por favor : ")
-        equipo.append([id,nombre,PJ,PE,PG,PP,GF,GC,TP])
+        equipo.append([nombre.upper(),0,0,0,0,0,0,0])
     elif (op == 2):
-        local = input("Deme un numero para escoger el equipo local, por favor : ")
-        visit = input("Deme un numero para escoger el equipo visitante, por favor : ")
+        local = str(input("ingrese cual es local : "))
+        visit = str(input("ingrese  cual es visitante : "))
+        
+
+        for i,item in enumerate(equipo):
+            if (local.upper() in item):
+                    item [1] +=1
+                    print = ("El equipo se ha registrado correctamente como local.")
+            elif(visit.upper() in item):
+                    print = ("El equipo se ha registrado correctamente como visitante.")
+                    item [1] +=1
+
+            ### MARCADORES ###
+                    
         marcadorl = int(input("Ingrese el numero de goles del equipo local : "))
         marcadorv = int(input("Ingrese el numero de goles del equipo visitante : "))
-        for i,item in enumerate(equipo):
-            if (local in item):
-                equipo[i][3]+marcador1
-                equipo[i][3]+marcador2
-                if (marcador1>marcador2):
-                    for item in equipo:
-                        if (local in item):
-                            item
+        
+            ### MARCADORES ###
+
+for i,item in enumerate(equipo):
+    if ((local.upper() in item) or (visit.upper() in item)):
+        if (item[0] == local.upper()):
+            item [5] += marcadorl
+            item [6] += marcadorv
+
+        elif (item[0] == visit.upper()):
+                item [6] += marcadorl
+                item [5] += marcadorv
+
+        if ((marcadorl > marcadorv)and(item[0] == local.upper())):
+                item [2] += 1
+                item [7] += 3
+
+        elif ((marcadorv > marcadorl)and(item[0] == visit.upper()) ):
+                item [3] += 1
+                item [7] += 3
+        
+        if (marcadorl == marcadorv):
+                item [4] += 1
+
+
+
     elif (op == 3):
         print("---- Aquí está la lista de Todos los Datos ----")
         for i,item in enumerate(equipo):
