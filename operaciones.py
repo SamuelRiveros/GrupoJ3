@@ -1,32 +1,25 @@
 import os
 os.system("cls")
 
+from tabulate import tabulate
+
 titulo = """
     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    +  -----    FEDERACION COLOMBIANA DE BETPLAY WOOOOOO      -----   +
+    +           FEDERACION COLOMBIANA DE BETPLAY WOOOOOO              +
     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 """
 
-# tabla = """
-#     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#     |  -----              TABLA DE INFORMACION                -----   |
-#     |                                                                 |
-#     |                                                                 |
-#     |                                                                 |
-#     |                                                                 |
-#     |                                                                 |
-#     |                                                                 |
-#     |                                                                 |
-#     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# """
-
-opciones = "1. Agregar equipo\n2. Ordenar Partidos\n3. Reportes\n4. Salir"
-isActivate = True
+opciones = "1. Agregar equipo\n2. Ordenar Partidos\n3. Reportes\n4. Reportes Finales\n5. Salir"
+jijijaja = True
 equipo = []
 
-while isActivate:
+totalgoles = 0
+totalpartidos = 0
+
+while jijijaja:
     os.system("cls")
-    print (titulo)
+    
+    print(titulo)
     print(opciones)
     op = int(input(":) : "))
     if (op == 1):
@@ -37,56 +30,61 @@ while isActivate:
         local = str(input("ingrese cual es local : "))
         visit = str(input("ingrese  cual es visitante : "))
         
+        if (local.upper() == visit.upper()):
+            print("ingrese dos equipos diferentes")
+        else:        
+            marcadorl = int(input("Ingrese el numero de goles del equipo local : "))
+            marcadorv = int(input("Ingrese el numero de goles del equipo visitante : "))
+            totalgoles += marcadorl + marcadorv
+            totalpartidos +=2
 
-        for i,item in enumerate(equipo):
-            if (local.upper() in item):
-                    item [1] +=1
-                    print = ("El equipo se ha registrado correctamente como local.")
-            elif(visit.upper() in item):
-                    print = ("El equipo se ha registrado correctamente como visitante.")
-                    item [1] +=1
-
-            ### MARCADORES ###
-                    
-        marcadorl = int(input("Ingrese el numero de goles del equipo local : "))
-        marcadorv = int(input("Ingrese el numero de goles del equipo visitante : "))
-        
-            ### MARCADORES ###
-
-for i,item in enumerate(equipo):
-    if ((local.upper() in item) or (visit.upper() in item)):
-        if (item[0] == local.upper()):
-            item [5] += marcadorl
-            item [6] += marcadorv
-
-        elif (item[0] == visit.upper()):
-                item [6] += marcadorl
-                item [5] += marcadorv
-
-        if ((marcadorl > marcadorv)and(item[0] == local.upper())):
-                item [2] += 1
-                item [7] += 3
-
-        elif ((marcadorv > marcadorl)and(item[0] == visit.upper()) ):
-                item [3] += 1
-                item [7] += 3
-        
-        if (marcadorl == marcadorv):
-                item [4] += 1
-
-
+            for i,item in enumerate(equipo):
+                if ((local.upper() in item) or (visit.upper() in item)):
+                    if (item[0] == local.upper()):
+                        item[1] +=1
+                        item [5] += marcadorl
+                        item [6] += marcadorv
+                        if ((marcadorl > marcadorv)):
+                            item [2] += 1
+                            item [7] += 3
+                        elif ((marcadorv < marcadorl)):
+                            item [3] += 1
+                        
+                    elif (item[0] == visit.upper()):
+                        item[1] +=1
+                        item [6] += marcadorl
+                        item [5] += marcadorv
+                        if ((marcadorl < marcadorv)):
+                            item [2] += 1
+                            item [7] += 3
+                        elif ((marcadorv < marcadorl)):
+                            item [3] += 1
+                    elif (marcadorl == marcadorv):
+                            item [4] += 1
+                        
 
     elif (op == 3):
-        print("---- Aquí está la lista de Todos los Datos ----")
-        for i,item in enumerate(equipo):
-                print(f"Numero :  {equipo[i]}")
-                os.system("pause")
+        print(tabulate(equipo,headers=["Nombre","PJ","PG","PP","PE","GF","GC","TP"]))
+        os.system("pause")
+
     elif (op == 4):
-        isActivate = False
-        print("Gracias por utilizar el programa.")
+        print("Reportes")
+        equipomasgoles= max(equipo, key=lambda n:n[5])
+        print(f"El equipo con mas goles es : {equipomasgoles[0]}")
+        equiposconmaspuntos= max(equipo, key=lambda n:n[7])
+        print(f"El equipo con mas puntos es: {equiposconmaspuntos[0]}")
+        equipomasvictorias=max(equipo, key=lambda n:n[2])
+        print(f"El equipo con mas victorias es: {equipomasvictorias[0]}")
+        print(f"El total de goles en el torneo es: {totalgoles}")
+        print(f"El promedio de goles es : {totalgoles/totalpartidos}")
+        
+
         os.system("pause")
     elif (op == 5):
-        pass
+        jijijaja = False
+        print("Gracias por utilizar el programa.")
+        os.system("pause")
+        
     else:
         os.system("cls")
         print("La opcion ingresada no es valida")
